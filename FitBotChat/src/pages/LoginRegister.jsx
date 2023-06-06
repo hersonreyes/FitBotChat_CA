@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import stats from '../assets/stats.svg';
 import tracker from '../assets/tracker.svg';
 import '../styles/LoginRegister.css';
+import { AuthContext } from '../auth/AuthContext';
 
 const LoginRegister = () => {
+
+    const { login } = useContext( AuthContext );
 
     const [signUpMode, setSignUpMode] = useState(false);
 
@@ -11,19 +14,54 @@ const LoginRegister = () => {
         setSignUpMode(!signUpMode);
     };
     
+    const [form, setForm] = useState({
+        email: 'test@gmail.com',
+        password: '123456'
+    });
+
+    const onChange = ({ target }) => {
+        const { name, value } = target;
+        setForm({
+            ...form,
+            [name]: value
+        });
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        
+        const { email, password } = form;
+        login(email, password);
+    }
+
     return (
     <div className={`containerl ${(signUpMode && 'sign-up-mode')}`}>
         <div className="forms-container">
             <div className="signin-signup">
-                <form action="" className="sign-in-form">
+                <form 
+                    onSubmit={ onSubmit } 
+                    className="sign-in-form"
+                >
                     <h2 className="title">Sign in</h2>
                     <div className="input-field">
-                        <i className="fas fa-user"></i>
-                        <input type="text" placeholder="Username"/>
+                        <i className="fa fa-user"></i>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Email"
+                            value={ form.email }
+                            onChange={ onChange }
+                        />
                     </div>
                     <div className="input-field">
-                        <i className="fas fa-lock"></i>
-                        <input type="text" placeholder="Password"/>
+                        <i className="fa fa-lock"></i>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            placeholder="Password"
+                            value={ form.password }
+                            onChange={ onChange }
+                        />
                     </div>
                     <input type="submit" value="Login" className="btnl solid"/>
 
