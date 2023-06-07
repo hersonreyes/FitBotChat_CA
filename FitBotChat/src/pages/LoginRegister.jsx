@@ -9,7 +9,7 @@ import { AuthContext } from '../auth/AuthContext';
 
 const LoginRegister = () => {
 
-    const { login } = useContext( AuthContext );
+    const { login, register } = useContext( AuthContext );
 
     const [signUpMode, setSignUpMode] = useState(false);
 
@@ -17,9 +17,10 @@ const LoginRegister = () => {
         setSignUpMode(!signUpMode);
     };
     
+    //login
     const [form, setForm] = useState({
-        email: 'test@gmail.com',
-        password: '123456'
+        email: '',
+        password: ''
     });
 
     const onChange = ({ target }) => {
@@ -43,6 +44,36 @@ const LoginRegister = () => {
 
     const allOk = () => {
         return ( form.email.length > 0 && form.password.length > 0 ) ? true : false;
+    }
+
+    //register
+    const [registerForm, setRegisterForm] = useState({
+        name: '',
+        email: '',
+        password: ''
+    });
+
+    const onChangeRegister = ({ target }) => {
+        const { name, value } = target;
+        setRegisterForm({
+            ...registerForm,
+            [name]: value
+        });
+    };
+
+    const onSubmitRegister = async(e) => {
+        e.preventDefault();
+        
+        const { name, email, password } = registerForm;
+        const msg = await register(name, email, password);
+        
+        if(msg !== true){
+            Swal.fire('Error', msg, 'error');
+        }
+    }
+
+    const allOkRegister = () => {
+        return ( registerForm.name.length > 0 && registerForm.email.length > 0 && registerForm.password.length > 0 ) ? true : false;
     }
 
     return (
@@ -83,21 +114,47 @@ const LoginRegister = () => {
 
                 </form>
 
-                <form action="" className="sign-up-form">
+                <form 
+                    onSubmit={ onSubmitRegister }
+                    className="sign-up-form"
+                >
                     <h2 className="title">Sign up</h2>
                     <div className="input-field">
-                        <i className="fas fa-user"></i>
-                        <input type="text" placeholder="Username"/>
+                        <i className="fa fa-user"></i>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            placeholder="Username"
+                            value={ registerForm.name }
+                            onChange={ onChangeRegister }
+                        />
                     </div>
                     <div className="input-field">
-                        <i className="fas fa-envelope"></i>
-                        <input type="text" placeholder="Email"/>
+                        <i className="fa fa-envelope"></i>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Email"
+                            value={ registerForm.email }
+                            onChange={ onChangeRegister }
+                        />
                     </div>
                     <div className="input-field">
-                        <i className="fas fa-lock"></i>
-                        <input type="text" placeholder="Password"/>
+                        <i className="fa fa-lock"></i>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            placeholder="Password"
+                            value={ registerForm.password }
+                            onChange={ onChangeRegister }
+                        />
                     </div>
-                    <input type="submit" value="Sign up" className="btnl solid"/>
+                    <input 
+                        type="submit" 
+                        value="Sign up" 
+                        className="btnl solid"
+                        disabled={ !allOkRegister() }
+                    />
                 </form>
             </div>
         </div>

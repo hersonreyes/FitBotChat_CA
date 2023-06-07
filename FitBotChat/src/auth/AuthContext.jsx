@@ -38,7 +38,27 @@ export const AuthProvider = ({ children }) => {
         return resp.ok;
     }
 
-    const register = (name, email, password) => {
+    const register = async(name, email, password) => {
+
+        const resp = await fetchWithoutToken('auth/new', {name, email, password}, 'POST');
+        
+        if(resp.ok){
+            localStorage.setItem('token', resp.token);
+            const { uid, name, email } = resp.user;
+
+            setAuth({
+                uid: uid,
+                checking: false,
+                logged: true,
+                name: name,
+                email: email
+            });
+
+            console.log('Authenticated');
+            return true;
+        }
+
+        return resp.msg;
 
     }
 
