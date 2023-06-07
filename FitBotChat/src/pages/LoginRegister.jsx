@@ -41,6 +41,10 @@ const LoginRegister = () => {
         }
     }
 
+    const allOk = () => {
+        return ( form.email.length > 0 && form.password.length > 0 ) ? true : false;
+    }
+
     return (
     <div className={`containerl ${(signUpMode && 'sign-up-mode')}`}>
         <div className="forms-container">
@@ -70,8 +74,12 @@ const LoginRegister = () => {
                             onChange={ onChange }
                         />
                     </div>
-                    <input type="submit" value="Login" className="btnl solid"/>
-
+                    <input 
+                        type="submit" 
+                        value="Login" 
+                        className="btnl solid"
+                        disabled={ !allOk() }
+                    />
 
                 </form>
 
