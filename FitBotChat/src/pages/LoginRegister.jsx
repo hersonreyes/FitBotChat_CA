@@ -2,6 +2,9 @@ import React, { useContext, useState } from 'react';
 import stats from '../assets/stats.svg';
 import tracker from '../assets/tracker.svg';
 import '../styles/LoginRegister.css';
+
+import Swal from 'sweetalert2';
+
 import { AuthContext } from '../auth/AuthContext';
 
 const LoginRegister = () => {
@@ -27,11 +30,15 @@ const LoginRegister = () => {
         });
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault();
         
         const { email, password } = form;
-        login(email, password);
+        const ok = await login(email, password);
+        
+        if(!ok){
+            Swal.fire('Error', 'Please check user and password', 'error');
+        }
     }
 
     return (
