@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import stats from '../assets/stats.svg';
 import tracker from '../assets/tracker.svg';
 import '../styles/LoginRegister.css';
@@ -6,8 +6,19 @@ import '../styles/LoginRegister.css';
 import Swal from 'sweetalert2';
 
 import { AuthContext } from '../auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const LoginRegister = () => {
+
+    let navigate = useNavigate();
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+
+        if(token){
+            return navigate("/");
+        }
+    }, [token]);
 
     const { login, register } = useContext( AuthContext );
 
