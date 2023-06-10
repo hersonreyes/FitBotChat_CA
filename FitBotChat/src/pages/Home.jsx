@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../styles/Chat.css';
 import InboxPeople from '../components/InboxPeople';
 import Messages from '../components/Messages';
 import ChatSelect from '../components/ChatSelect';
 import { useNavigate } from 'react-router-dom';
+import { ChatContext } from '../context/chat/ChatContext';
 
 const Home = () => {
+
+  const { chatState } = useContext( ChatContext );
 
   let navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -23,7 +26,7 @@ const Home = () => {
             <InboxPeople />
 
             {
-                (true)
+                (chatState.activeChat)
                     ? <Messages />
                     : <ChatSelect />  
             }
