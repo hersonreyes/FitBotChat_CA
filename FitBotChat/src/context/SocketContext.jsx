@@ -4,6 +4,7 @@ import { useSocket } from '../hooks/useSocket';
 import { AuthContext } from '../auth/AuthContext';
 import { ChatContext } from './chat/ChatContext';
 import { types } from '../types/Types';
+import { scrollToBottom } from 'react-scroll/modules/mixins/animate-scroll';
 
 export const SocketContext = createContext();
 
@@ -49,6 +50,8 @@ export const SocketProvider = ({ children }) => {
                 type: types.newMessage,
                 payload: message
             });
+
+            scrollToBottom('messages');
         });
 
     }, [socket, dispatch]);

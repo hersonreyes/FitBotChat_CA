@@ -1,16 +1,26 @@
 import React, { useContext } from 'react'
 import { ChatContext } from '../context/chat/ChatContext';
 import { types } from '../types/Types';
+import { fetchWithToken } from '../helpers/fetch';
+import { scrollToBottom } from 'react-scroll/modules/mixins/animate-scroll';
 
 const SideBarChatItem = ({ user }) => {
   
   const { chatState, dispatch } = useContext(ChatContext);
 
-  const activateChat = () => {
+  const activateChat = async() => {
     dispatch({
       type: types.activateChat,
       payload: user.uid
     });
+
+    const resp = await fetchWithToken(`messages/${user.uid}`);
+    dispatch({
+      type: types.loadMessages,
+      payload: resp.messages
+    });
+
+    scrollToBottom('messages');
   }
 
   return (
