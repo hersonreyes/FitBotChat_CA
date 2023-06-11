@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { ChatContext } from '../context/chat/ChatContext';
 import { types } from '../types/Types';
 import { fetchWithToken } from '../helpers/fetch';
-import { scrollToBottom } from 'react-scroll/modules/mixins/animate-scroll';
+import { scrollToBottomAnimated } from '../helpers/scrollToBottom';
 
 const SideBarChatItem = ({ user }) => {
   
@@ -20,7 +20,7 @@ const SideBarChatItem = ({ user }) => {
       payload: resp.messages
     });
 
-    scrollToBottom('messages');
+    scrollToBottomAnimated('messages');
   }
 
   return (

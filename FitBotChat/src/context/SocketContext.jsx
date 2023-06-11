@@ -4,7 +4,7 @@ import { useSocket } from '../hooks/useSocket';
 import { AuthContext } from '../auth/AuthContext';
 import { ChatContext } from './chat/ChatContext';
 import { types } from '../types/Types';
-import { scrollToBottom } from 'react-scroll/modules/mixins/animate-scroll';
+import { scrollToBottomAnimated } from '../helpers/scrollToBottom';
 
 export const SocketContext = createContext();
 
@@ -51,7 +51,7 @@ export const SocketProvider = ({ children }) => {
                 payload: message
             });
 
-            scrollToBottom('messages');
+            scrollToBottomAnimated('messages');
         });
 
     }, [socket, dispatch]);
