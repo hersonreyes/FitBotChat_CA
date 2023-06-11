@@ -14,7 +14,10 @@ const Messages = () => {
     <div className="mesgs">
 
         {/* <!-- Historia inicio --> */}
-        <div className="msg_history">
+        <div
+            id="messages" 
+            className="msg_history"
+        >
 
             {
                 chatState.messages.map(msg => (
