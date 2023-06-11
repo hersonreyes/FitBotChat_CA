@@ -1,5 +1,7 @@
-import React, { createContext, useCallback, useState } from "react";
+import React, { useContext, createContext, useCallback, useState } from "react";
 import { fetchWithToken, fetchWithoutToken } from "../helpers/fetch";
+import { ChatContext } from "../context/chat/ChatContext";
+import { types } from "../types/Types";
 
 export const AuthContext = createContext();
 
@@ -15,6 +17,7 @@ const initialState = {
 export const AuthProvider = ({ children }) => {
   
     const [auth, setAuth] = useState(initialState);
+    const { dispatch } = useContext(ChatContext);
 
     const login = async(email, password) => {
 
@@ -107,6 +110,9 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
+
+        dispatch({ type: types.logout });
+
         setAuth({
             checking: false,
             logged: false
