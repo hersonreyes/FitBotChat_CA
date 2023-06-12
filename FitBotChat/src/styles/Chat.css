@@ -11,7 +11,7 @@ img {
     background: #f8f8f8 none repeat scroll 0 0;
     float: left;
     overflow: hidden;
-    width: 40%;
+    width: 20%;
     border-right: 1px solid #c4c4c4;
 }
 
@@ -93,6 +93,10 @@ img {
     width: 11%;
 }
 
+.chat_img2{
+    width: 15%;
+}
+
 .chat_ib {
     float: left;
     padding: 0 0 0 15px;
@@ -155,8 +159,8 @@ img {
 
 .mesgs {
     float: left;
-    padding: 30px 15px 0 25px;
-    width: 60%;
+    padding: 25px 15px 0 25px;
+    width: 80%;
     height: 100vh;
 }
 
@@ -195,19 +199,14 @@ img {
 }
 
 .msg_send_btn {
-    background: #7674FE none repeat scroll 0 0;
-    border: medium none;
-    border-radius: 5px;
-    color: #fff;
+    background: transparent none repeat scroll 0 0;
+    border:none;
     cursor: pointer;
-    font-size: 17px;
-    height: 33px;
-    width: 70px;
 }
 
 
 .msg_history {
-    height: 90%;
+    height: 80%;
     overflow-y: auto;
 }
 
@@ -229,8 +228,8 @@ textarea {
 
 .middle-screen {
     position: absolute;
-    top: 40%;
+    top: 20%;
     right: 0;
-    width: 60%;
+    width: 80%;
     text-align: center;
 }

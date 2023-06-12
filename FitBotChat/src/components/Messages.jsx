@@ -1,39 +1,42 @@
-import React, { useContext } from 'react'
-import SendMessage from './SendMessage'
-import IncomingMessage from './IncomingMessage'
-import OutgoingMessage from './OutgoingMessage'
-import { ChatContext } from '../context/chat/ChatContext'
-import { AuthContext } from '../auth/AuthContext'
+import React, { useContext } from "react";
+import SendMessage from "./SendMessage";
+import IncomingMessage from "./IncomingMessage";
+import OutgoingMessage from "./OutgoingMessage";
+import { ChatContext } from "../context/chat/ChatContext";
+import { AuthContext } from "../auth/AuthContext";
 
 const Messages = () => {
-
-    const { chatState } = useContext(ChatContext);
-    const { auth } = useContext(AuthContext);
+  const { chatState } = useContext(ChatContext);
+  const { auth } = useContext(AuthContext);
+  const userActive = chatState.users;
+  const User = userActive.filter(
+    (user) => user.uid === chatState.activeChat
+  )[0];
 
   return (
     <div className="mesgs">
+      {/* <!-- Historia inicio --> */}
 
-        {/* <!-- Historia inicio --> */}
-        <div
-            id="messages" 
-            className="msg_history"
-        >
-
-            {
-                chatState.messages.map(msg => (
-                    ( msg.to === auth.uid )
-                        ? <IncomingMessage key={ msg._id } msg={ msg } />
-                        : <OutgoingMessage key={ msg._id } msg={ msg } />
-                ))
-            }
-
-        </div>
-        {/* <!-- Historia Fin --> */}
-
-        <SendMessage />
-
+      <div className="row border-bottom text-center">
+    <div className="chat_ib">
+      <h4>{User.name}</h4>
     </div>
-  )
-}
+    </div>
 
-export default Messages
+      <div id="messages" className="msg_history mt-2">
+        {chatState.messages.map((msg) =>
+          msg.to === auth.uid ? (
+            <IncomingMessage key={msg._id} msg={msg} />
+          ) : (
+            <OutgoingMessage key={msg._id} msg={msg} />
+          )
+        )}
+      </div>
+      {/* <!-- Historia Fin --> */}
+
+      <SendMessage />
+    </div>
+  );
+};
+
+export default Messages;
