@@ -14,7 +14,19 @@ export const chatReducer = (state, action) => {
             return{
                 ...state,
                 activeChat: action.payload,
+                activeBot: null,
+                botmessages: [],
                 messages: []
+            }
+        
+        case types.activateBot:
+            if(state.activeBot === action.payload) return state;
+            return{
+                ...state,
+                activeBot: action.payload,
+                activeChat: null,
+                messages: [],
+                botmessages: []
             }
 
         case types.newMessage:

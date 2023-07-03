@@ -5,6 +5,7 @@ import Messages from '../components/Messages';
 import ChatSelect from '../components/ChatSelect';
 import { useNavigate } from 'react-router-dom';
 import { ChatContext } from '../context/chat/ChatContext';
+import BotMessages from '../components/BotMessages';
 
 const Home = () => {
 
@@ -28,7 +29,8 @@ const Home = () => {
             {
                 (chatState.activeChat)
                     ? <Messages />
-                    : <ChatSelect />  
+                    : (chatState.activeBot) ? <BotMessages />
+                    :  <ChatSelect />
             }
         </div>
 

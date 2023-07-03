@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'https://fitchat-backend-6cb534693029.herokuapp.com';
 
 export const fetchWithoutToken = async(endpoint, data, method='GET') => {
 
