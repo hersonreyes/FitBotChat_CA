@@ -1,8 +1,9 @@
-# Fitbot Chat Backend
-## Instación
-Este backend está hecho con [Node.js ](https://nodejs.org/en).
 
-Antes de instalar el backend, [descarga e instala Node.js](https://nodejs.org/en/download).
+# Fitbot Chat Frontend
+## Instación
+Este frontend está hecho con [Node.js ](https://nodejs.org/en).
+
+Antes de instalar el frontend, [descarga e instala Node.js](https://nodejs.org/en/download).
 
 1. Clona el repositorio mediante el comando 
 `git clone https://github.com/hersonreyes/FitBotChat_CA.git `
@@ -12,4 +13,4 @@ Antes de instalar el backend, [descarga e instala Node.js](https://nodejs.org/en
 3. Inicia el servidor local con el comando: `npm run dev`
 
 ## Licencia
-[MIT](https://github.com/hersonreyes/Backend-ACA/blob/main/LICENSE)
+[MIT](https://github.com/hersonreyes/FitBotChat_CA/blob/main/LICENSE)
