@@ -1,5 +1,6 @@
 import React from 'react'
 
+//Componente que se muestra cuando no se ha seleccionado un chat
 const ChatSelect = () => {
   return (
     <div className="middle-screen">

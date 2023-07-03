@@ -6,15 +6,20 @@ import { ChatContext } from './chat/ChatContext';
 import { types } from '../types/Types';
 import { scrollToBottomAnimated } from '../helpers/scrollToBottom';
 
+//Contexto que contiene la información del socket
 export const SocketContext = createContext();
 
-
+//Componente que provee el contexto del socket
 export const SocketProvider = ({ children }) => {
 
+    //Obtiene el estado del contexto de autenticación
     const { socket, online, connectSocket, disconnectSocket } = useSocket('http://localhost:8080');
+    //Obtiene el estado del contexto de autenticación
     const { auth } = useContext( AuthContext );
+    //Obtiene el estado del contexto de chat
     const { dispatch } = useContext( ChatContext );
 
+    //Conecta el socket cuando el usuario se autentica
     useEffect(() => {
 
         if(auth.logged){
@@ -23,6 +28,7 @@ export const SocketProvider = ({ children }) => {
 
     }, [auth, connectSocket]);
 
+    //Desconecta el socket cuando el usuario se desautentica
     useEffect(() => {
 
         if(!auth.logged){
@@ -31,7 +37,7 @@ export const SocketProvider = ({ children }) => {
 
     }, [auth, disconnectSocket]);
 
-    //Listen for changes in connected users
+    //Escucha los cambios en en el estado de los usuarios
     useEffect(() => {
 
         socket?.on('users-list', (users) => {
@@ -43,6 +49,7 @@ export const SocketProvider = ({ children }) => {
 
     }, [socket, dispatch]);
 
+    //Escucha los mensajes personales
     useEffect(() => {
 
         socket?.on('personal-message', (message) => {
@@ -56,6 +63,7 @@ export const SocketProvider = ({ children }) => {
 
     }, [socket, dispatch]);
     
+    //Retorna el contexto del socket
     return (
         <SocketContext.Provider value={{ socket, online }}>
             { children }

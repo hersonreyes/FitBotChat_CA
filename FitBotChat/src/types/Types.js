@@ -1,4 +1,4 @@
-
+// Arreglo de strings para los types de los reducers
 export const types = {
 
     uploadedUsers: '[Chat] Uploaded users',

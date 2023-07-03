@@ -1,6 +1,7 @@
 import React from 'react';
 import { hourMonth } from '../helpers/hourMonth';
 
+//Componente que muestra los mensajes enviados por el usuario
 const OutgoingMessage = ({ msg }) => {
   return (
     <div className="outgoing_msg">

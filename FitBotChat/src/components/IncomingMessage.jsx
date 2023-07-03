@@ -1,6 +1,7 @@
 import React from 'react';
 import { hourMonth } from '../helpers/hourMonth';
 
+//Componente que muestra los mensajes entrantes en el chat (recibidos por el usuario )
 const IncomingMessage = ({ msg }) => {
   
   return (

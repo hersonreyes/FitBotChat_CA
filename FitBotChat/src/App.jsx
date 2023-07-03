@@ -3,6 +3,7 @@ import { SocketProvider } from './context/SocketContext';
 import { ChatProvider } from './context/chat/ChatContext';
 import AppRouter from './router/AppRouter';
 
+//Aplicación principal
 function App() {
 
   return (
