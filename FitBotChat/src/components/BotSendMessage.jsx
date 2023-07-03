@@ -1,21 +1,54 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useContext } from "react";
+import { ChatContext } from "../context/chat/ChatContext";
+import { AuthContext } from '../auth/AuthContext';
+import { SocketContext } from '../context/SocketContext'
+
 
 const BotSendMessage = () => {
 
     const [message, setMessage] = useState('');
+    const { socket } = useContext(SocketContext);
+    const { auth } = useContext(AuthContext);
+    const { chatState } = useContext(ChatContext);
 
     const onChange = ({ target }) => {
         setMessage(target.value);
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         if (message.length === 0) { return; }
         setMessage('');
 
-        //TODO: Make petition to Bot API
-        console.log('This is a petition to the bot');
+        try {
+            const response = await fetch('http://127.0.0.1:8085/chatbot', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ entrada: message })
+            });
+    
+            if (!response.ok) {
+                throw new Error('Error al enviar el mensaje al bot');
+            }
+    
+            const data = await response.json();
+            // Obtener la respuesta del bot desde el objeto data
+            const respuesta = data.respuesta;
+            console.log('Respuesta del bot:', respuesta);
+
+            socket.emit('personal-message', {
+                from: auth.uid,
+                to: chatState.activeChat,
+                message
+            });
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     return (
