@@ -18,7 +18,6 @@ export const chatReducer = (state, action) => {
                 ...state,
                 activeChat: action.payload,
                 activeBot: null,
-                botmessages: [],
                 messages: []
             }
         
@@ -30,7 +29,6 @@ export const chatReducer = (state, action) => {
                 activeBot: action.payload,
                 activeChat: null,
                 messages: [],
-                botmessages: []
             }
 
         case types.newMessage:
@@ -56,7 +54,9 @@ export const chatReducer = (state, action) => {
             return {
                 uid: '',
                 activeChat: null, 
+                activateBot: null,
                 users: [], 
+                botmessages: [],
                 messages: [], 
             }
         
