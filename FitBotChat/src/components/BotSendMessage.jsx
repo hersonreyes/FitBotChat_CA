@@ -6,7 +6,7 @@ import { SocketContext } from '../context/SocketContext'
 import { types } from '../types/Types';
 
 const BotSendMessage = () => {
-    // Utiliza el hook useState para manejar el estado del mensaje
+    // Utiliza el hook useState para hacer un manejo en el estado del mensaje
     const [message, setMessage] = useState('');
     // Obtiene el estado y el despachador del contexto ChatContext
     const { dispatch } = useContext(ChatContext);
