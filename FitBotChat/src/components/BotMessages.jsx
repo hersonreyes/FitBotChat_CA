@@ -5,11 +5,12 @@ import OutgoingMessageBot from "./OutgoingMessageBot";
 import { ChatContext } from "../context/chat/ChatContext";
 
 const BotMessages = () => {
+  // Utiliza el hook useContext para obtener el estado del chat desde el ChatContext
   const { chatState } = useContext(ChatContext);
   return (
     <div className="mesgs">
-      {/* <!-- Historia inicio --> */}
-
+      {/* Historia inicio */}
+      {/* Comentario: Esta sección contiene el encabezado de la conversación */}
       <div className="row border-bottom text-center">
         <div className="chat_ib">
           <h4>FITBOT</h4>
@@ -17,6 +18,7 @@ const BotMessages = () => {
       </div>
 
       <div id="messages" className="msg_history mt-2">
+        {/* Comentario: Mapea los mensajes del bot y muestra componentes IncomingMessageBot o OutgoingMessageBot según el estado del mensaje */}
         {chatState.botmessages.map((message, index) =>
           message.status === 2 ? (
             <IncomingMessageBot key={index} msg={message} />
@@ -25,8 +27,9 @@ const BotMessages = () => {
           )
         )}
       </div>
-      {/* <!-- Historia Fin --> */}
-
+      {/* Historia Fin */}
+      
+      {/* Renderiza el componente BotSendMessage */}
       <BotSendMessage />
     </div>
   );
