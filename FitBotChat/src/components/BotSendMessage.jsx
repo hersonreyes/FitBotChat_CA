@@ -3,14 +3,13 @@ import { useContext } from "react";
 import { ChatContext } from "../context/chat/ChatContext";
 import { AuthContext } from '../auth/AuthContext';
 import { SocketContext } from '../context/SocketContext'
+import { types } from '../types/Types';
 
 
 const BotSendMessage = () => {
 
     const [message, setMessage] = useState('');
-    const { socket } = useContext(SocketContext);
-    const { auth } = useContext(AuthContext);
-    const { chatState } = useContext(ChatContext);
+    const { dispatch } = useContext( ChatContext );
 
     const onChange = ({ target }) => {
         setMessage(target.value);
@@ -21,6 +20,15 @@ const BotSendMessage = () => {
 
         if (message.length === 0) { return; }
         setMessage('');
+        const respUser = {
+            status : 1,
+            msg : message
+        }
+
+        dispatch({
+            type: types.newMessageBot,
+            payload: respUser
+        });
 
         try {
             const response = await fetch('http://127.0.0.1:8085/chatbot', { 
@@ -40,10 +48,14 @@ const BotSendMessage = () => {
             const respuesta = data.respuesta;
             console.log('Respuesta del bot:', respuesta);
 
-            socket.emit('personal-message', {
-                from: auth.uid,
-                to: chatState.activeChat,
-                message
+            const respBot = {
+                status : 2,
+                msg : respuesta
+            }
+
+            dispatch({
+                type: types.newMessageBot,
+                payload: respBot
             });
 
         } catch (error) {

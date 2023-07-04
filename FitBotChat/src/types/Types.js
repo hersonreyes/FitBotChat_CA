@@ -7,5 +7,6 @@ export const types = {
     newMessage: '[Chat] New message',
     loadMessages: '[Chat] Load messages',
     logout: '[Chat] Logout',
+    newMessageBot: '[Chat] New Bot Message',
 
 }

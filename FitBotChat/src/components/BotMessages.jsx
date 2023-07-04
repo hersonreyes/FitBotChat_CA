@@ -1,13 +1,11 @@
-import { React, useContext } from "react";
+import { useContext } from "react";
 import BotSendMessage from "./BotSendMessage";
-import IncomingMessage from "./IncomingMessage";
-import OutgoingMessage from "./OutgoingMessage";
+import IncomingMessageBot from "./IncomingMessageBot";
+import OutgoingMessageBot from "./OutgoingMessageBot";
 import { ChatContext } from "../context/chat/ChatContext";
-import { AuthContext } from "../auth/AuthContext";
 
 const BotMessages = () => {
   const { chatState } = useContext(ChatContext);
-  const { auth } = useContext(AuthContext);
   return (
     <div className="mesgs">
       {/* <!-- Historia inicio --> */}
@@ -19,11 +17,11 @@ const BotMessages = () => {
       </div>
 
       <div id="messages" className="msg_history mt-2">
-        {chatState.botmessages.map((msg) =>
-          msg.to === auth.uid ? (
-            <IncomingMessage key={msg._id} msg={msg} />
+        {chatState.botmessages.map((message, index) =>
+          message.status === 2 ? (
+            <IncomingMessageBot key={index} msg={message} />
           ) : (
-            <OutgoingMessage key={msg._id} msg={msg} />
+            <OutgoingMessageBot key={index} msg={message} />
           )
         )}
       </div>
