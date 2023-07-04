@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../auth/AuthContext";
 
+//Componente que muestra el nombre del usuario que esta activo en el chat
 const SearchBox = () => {
+  //Obtiene el estado del contexto de autenticación
   const { auth, logout } = useContext(AuthContext);
 
   return (
     <div className="headind_srch">
       <div className="recent_heading mt-2">
+        {/*Se muestra el nombre del usuario activo en el chat*/}
         <h4>{auth.name}</h4>
       </div>
       <div className="srch_bar">
         <div className="stylish-input-group">
+          {/*Cuando se haga click en el botón se ejecuta la funcion logout, que viene del contexto de autenticacion*/}
           <button className="btn text-danger" onClick={logout}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

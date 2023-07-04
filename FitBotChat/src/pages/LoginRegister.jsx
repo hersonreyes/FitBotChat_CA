@@ -8,11 +8,15 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+//Página de login y registro
 const LoginRegister = () => {
 
+    //Obtenemos la función para navegar entre páginas
     let navigate = useNavigate();
+    //Obtenemos el token del usuario
     const token = localStorage.getItem('token');
 
+    //Si hay token, redirige a la página de home
     useEffect(() => {
 
         if(token){
@@ -20,20 +24,22 @@ const LoginRegister = () => {
         }
     }, [token]);
 
+    //Obtenemos las funciones de login y registro
     const { login, register } = useContext( AuthContext );
-
+    //Obtenemos el estado del chat
     const [signUpMode, setSignUpMode] = useState(false);
-
+    //Función para cambiar entre login y registro
     const toggleSignUpMode = () => {
         setSignUpMode(!signUpMode);
     };
     
-    //login
+    //Estado del login
     const [form, setForm] = useState({
         email: '',
         password: ''
     });
 
+    //Función para cambiar el estado del login
     const onChange = ({ target }) => {
         const { name, value } = target;
         setForm({
@@ -42,10 +48,12 @@ const LoginRegister = () => {
         });
     };
 
+    //Función para hacer login
     const onSubmit = async(e) => {
         e.preventDefault();
-        
+        //Obtenemos el email y la contraseña
         const { email, password } = form;
+        //Llamamos a la función de login y esperamos a que termine de ejecutarse para continuar
         const ok = await login(email, password);
         
         if(!ok){
@@ -53,17 +61,18 @@ const LoginRegister = () => {
         }
     }
 
+    //Función para comprobar que los campos no están vacíos
     const allOk = () => {
         return ( form.email.length > 0 && form.password.length > 0 ) ? true : false;
     }
 
-    //register
+    //Estado del registro
     const [registerForm, setRegisterForm] = useState({
         name: '',
         email: '',
         password: ''
     });
-
+    //Función para cambiar el estado del registro
     const onChangeRegister = ({ target }) => {
         const { name, value } = target;
         setRegisterForm({
@@ -71,11 +80,12 @@ const LoginRegister = () => {
             [name]: value
         });
     };
-
+    //Función para hacer el registro
     const onSubmitRegister = async(e) => {
         e.preventDefault();
-        
+        //Obtenemos el nombre, email y contraseña
         const { name, email, password } = registerForm;
+        //Llamamos a la función de registro y esperamos a que termine de ejecutarse para continuar
         const msg = await register(name, email, password);
         
         if(msg !== true){
@@ -83,10 +93,12 @@ const LoginRegister = () => {
         }
     }
 
+    //Función para comprobar que los campos no están vacíos
     const allOkRegister = () => {
         return ( registerForm.name.length > 0 && registerForm.email.length > 0 && registerForm.password.length > 0 ) ? true : false;
     }
 
+    //Renderizamos la página
     return (
     <div className={`containerl ${(signUpMode && 'sign-up-mode')}`}>
         <div className="forms-container">

@@ -3,24 +3,33 @@ import { SocketContext } from '../context/SocketContext';
 import { AuthContext } from '../auth/AuthContext';
 import { ChatContext } from '../context/chat/ChatContext';
 
+//Componente que contiene el formulario para enviar mensajes a personas
 const SendMessage = () => {
 
+    //Estado del mensaje
     const [message, setMessage] = useState('');
 
+    //Obtiene el socket del contexto de socket
     const { socket } = useContext(SocketContext);
+    //Obtiene el estado del contexto de autenticación
     const { auth } = useContext(AuthContext);
+    //Obtiene el estado del contexto de chat
     const { chatState } = useContext(ChatContext);
 
+    //Función que se ejecuta cuando el usuario escribe un mensaje y actualiza el estado del mensaje
     const onChange = ({ target }) => {
         setMessage(target.value);
     }
 
+    //Función que se ejecuta cuando el usuario envía un mensaje
     const onSubmit = (e) => {
         e.preventDefault();
 
+        //Si el mensaje está vacío, no se envía
         if (message.length === 0) { return; }
         setMessage('');
 
+        //Se envía el mensaje al servidor mediante el socket
         socket.emit('personal-message', {
             from: auth.uid,
             to: chatState.activeChat,
