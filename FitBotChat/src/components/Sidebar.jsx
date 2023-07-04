@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import SideBarChatItem from './SideBarChatItem'
+import SideBarBot from './SideBarBot'
 import { ChatContext } from '../context/chat/ChatContext';
 import { AuthContext } from '../auth/AuthContext';
 
@@ -10,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <div className="inbox_chat">
-
+        <SideBarBot />
         {
             chatState.users
                 .filter( user => user.uid !== auth.uid )
