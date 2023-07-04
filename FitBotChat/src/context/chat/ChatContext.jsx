@@ -10,6 +10,7 @@ const initialState = {
     activeChat: null, //UID of the user i want to send messages to
     users: [], //All users
     messages: [], //Selected chat
+    botmessages: [], //bot messages
 }
 
 //Componente que provee el contexto de chat

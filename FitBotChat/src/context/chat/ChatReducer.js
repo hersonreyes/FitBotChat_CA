@@ -19,6 +19,16 @@ export const chatReducer = (state, action) => {
                 activeChat: action.payload,
                 messages: []
             }
+        //Si el tipo de accion es activateBot
+        case types.activateBot:
+            if(state.activeBot === action.payload) return state;
+            return{
+                ...state,
+                activeBot: action.payload,
+                activeChat: null,
+                messages: [],
+                botmessages: []
+            }
         // Si el tipo de accion es newMessage, se agregara el mensaje al arreglo de mensajes
         case types.newMessage:
             if(state.activeChat === action.payload.from || state.activeChat === action.payload.to){
@@ -43,9 +53,14 @@ export const chatReducer = (state, action) => {
                 users: [], 
                 messages: [], 
             }
+        //Si el tipo de accion es newMessageBot, se agregara el mensaje al arreglo de mensajes del bot
+        case types.newMessageBot:
+            return {
+                ...state,
+                botmessages: [ ...state.botmessages, action.payload ]
+            }
 
         default:
             return state;
     }
-
 }
