@@ -1,36 +1,40 @@
 import { types } from "../../types/Types";
 
-// Es una funcion que modificara el estado del context del chat
 export const chatReducer = (state, action) => {
-    
-    // Dependiendo del tipo de accion que se reciba, se modificara el estado
+    // El reducer recibe el estado actual y una acción que contiene el tipo y los datos adicionales
+
     switch(action.type) {
-        // Si el tipo de accion es uploadUsers, se pondra el campo users del estado con el valor del payload
         case types.uploadedUsers:
-            return{
+            // Actualiza la lista de usuarios con los datos proporcionados en la acción
+            return {
                 ...state,
                 users: [ ...action.payload ]
             }
-        // Si el tipo de accion es activateChat, se pondra el campo activeChat del estado con el valor del payload y el arreglo de mensajes se vaciara
+        
         case types.activateChat:
+            // Activa un chat específico y desactiva el chat bot
             if(state.activeChat === action.payload) return state;
-            return{
+            return {
                 ...state,
                 activeChat: action.payload,
+                activeBot: null,
+                botmessages: [],
                 messages: []
             }
-        //Si el tipo de accion es activateBot
+        
         case types.activateBot:
+            // Activa el chat bot y desactiva el chat activo
             if(state.activeBot === action.payload) return state;
-            return{
+            return {
                 ...state,
                 activeBot: action.payload,
                 activeChat: null,
                 messages: [],
                 botmessages: []
             }
-        // Si el tipo de accion es newMessage, se agregara el mensaje al arreglo de mensajes
+
         case types.newMessage:
+            // Agrega un nuevo mensaje al estado solo si el chat activo coincide con el remitente o el destinatario del mensaje
             if(state.activeChat === action.payload.from || state.activeChat === action.payload.to){
                 return {
                     ...state,
@@ -39,22 +43,25 @@ export const chatReducer = (state, action) => {
             } else {
                 return state;
             }
-        // Si el tipo de accion es loadMessages, se pondra el campo messages del estado con el valor del payload 
+        
         case types.loadMessages:
+            // Carga los mensajes del chat en el estado
             return { 
                 ...state,
                 messages: [ ...action.payload ]
             }
-        // Si el tipo de accion es logout, se pondra el estado en su valor inicial
+        
         case types.logout:
+            // Realiza un restablecimiento del estado cuando el usuario cierra sesión
             return {
                 uid: '',
                 activeChat: null, 
                 users: [], 
                 messages: [], 
             }
-        //Si el tipo de accion es newMessageBot, se agregara el mensaje al arreglo de mensajes del bot
+        
         case types.newMessageBot:
+            // Agrega un nuevo mensaje del bot al estado
             return {
                 ...state,
                 botmessages: [ ...state.botmessages, action.payload ]
