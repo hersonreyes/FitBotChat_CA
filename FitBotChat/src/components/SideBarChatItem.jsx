@@ -4,16 +4,20 @@ import { types } from '../types/Types';
 import { fetchWithToken } from '../helpers/fetch';
 import { scrollToBottomAnimated } from '../helpers/scrollToBottom';
 
+//Componente que contiene la información de un usuario en la lista de chats
 const SideBarChatItem = ({ user }) => {
   
+  //Obtiene el estado del contexto de chat
   const { chatState, dispatch } = useContext(ChatContext);
 
+  //Activa el chat del usuario seleccionado
   const activateChat = async() => {
     dispatch({
       type: types.activateChat,
       payload: user.uid
     });
 
+    //Carga los mensajes del usuario seleccionado
     const resp = await fetchWithToken(`messages/${user.uid}`);
     dispatch({
       type: types.loadMessages,
@@ -24,6 +28,7 @@ const SideBarChatItem = ({ user }) => {
   }
 
   return (
+    //Muestra la información del usuario en la lista de chats y lo marca como activo si es el usuario seleccionado
     <div 
       className={`chat_list ${ (user.uid === chatState.activeChat) && 'active_chat' }`}
       onClick={ activateChat }
@@ -34,7 +39,7 @@ const SideBarChatItem = ({ user }) => {
             </div>
             <div className="chat_ib">
                 <h5>{ user.name }</h5>
-                {
+                {//Muestra el estado del usuario (Online/Offline)
                   (user.online)
                   ? <span className="text-success">Online</span>
                   : <span className="text-danger">Offline</span>
