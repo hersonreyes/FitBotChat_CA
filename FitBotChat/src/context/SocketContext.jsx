@@ -11,7 +11,7 @@ export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
 
-    const { socket, online, connectSocket, disconnectSocket } = useSocket('https://fitchat-backend-6cb534693029.herokuapp.com');
+    const { socket, online, connectSocket, disconnectSocket } = useSocket('http://localhost:8080');
     const { auth } = useContext( AuthContext );
     const { dispatch } = useContext( ChatContext );
 

@@ -24,13 +24,12 @@ const Messages = () => {
     </div>
 
       <div id="messages" className="msg_history mt-2">
-        {chatState.messages.map((msg) =>
-          msg.to === auth.uid ? (
-            <IncomingMessage key={msg._id} msg={msg} />
-          ) : (
-            <OutgoingMessage key={msg._id} msg={msg} />
-          )
-        )}
+        {chatState.messages.map((msg) => {
+          if (msg.to === auth.uid)
+            return <IncomingMessage key={msg._id} msg={msg} />;
+          else
+            return <OutgoingMessage key={msg._id} msg={msg} />;
+        })}
       </div>
       {/* <!-- Historia Fin --> */}
 
